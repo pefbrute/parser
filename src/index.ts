@@ -7,7 +7,6 @@ const http = require("http");
 const port = 3000;
 let POST: object = {};
 
-
 // содежимое index.js
 
 const requestHandler = (req, res) => {
@@ -30,15 +29,27 @@ const requestHandler = (req, res) => {
         var _data = data[i].split("=");
         POST[_data[0]] = _data[1];
       }
+
+      
     });
 
-    console.log(POST["userWord"]);
+    url = POST["userWord"];
 
-    request(url, function (err, resp, body) {
-      if (err) throw err;
-      res.end(body);
-      console.log(resp.statusCode);
-    });
+    console.log(POST);
+
+    if (url === undefined){
+      res.end();
+    } else {
+      request(url, function (err, resp, body) {
+        if (err) throw err;
+        res.end(body);
+        console.log(resp.statusCode);
+      });
+    }
+    
+    // console.log(POST["userWord"]);
+
+    
     
     // res.end(POST["userWord"]);
   } else {
